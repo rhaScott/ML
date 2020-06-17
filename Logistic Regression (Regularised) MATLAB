@@ -1,0 +1,36 @@
+function [J, grad] = lrCostFunction(theta, X, y, lambda)
+
+%   Computes the cost of a given theta as the parameter for regularized logistic regression and the
+%   gradient of the cost w.r.t. to the parameters. Returns the overall cost function (1*1) and gradients for features (n*1).
+
+% Initialising variable m = number of data samples.
+m = length(y); 
+
+% Variable dimensions
+% X         = m x n
+% theta     = n x 1
+% hyp / z   = m * 1
+% y         = m * 1
+% pos / neg = m * 1 
+% J         = 1 * 1
+% grad      = (n * m)(m * 1) = n * 1
+
+% Evaluating the hypothesis for given values of X
+z = X * theta;
+hyp = 1./(1 + exp(-z));
+
+% Evaluating the positive and negative classes
+pos = -y .* log(hyp);
+neg = (1-y) .* log(1-hyp);
+
+% Regularisation term for cost function. theta(2:end) as j = 0 (intercept) is not regularised
+reg_term = (lambda/ (2*m)) * sum(theta(2:end).^2);
+
+% Evaluating the cost function 
+J = (1/m) * sum(pos-neg) + reg_term;
+
+% Evaluating the gradients, treating j = 0 (intercept) as a seperate case as it is not regularised.
+grad(1) = (1/m) * (X(:,1)'*(hyp-y));
+grad(2:end) = (1/m) * (X(:,2:end)'*(hyp-y)) + (lambda/m) * theta(2:end);
+
+end
