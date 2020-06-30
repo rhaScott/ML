@@ -1,5 +1,5 @@
 # ML
-Machine Learning Code Snippets  
+Machine Learning Code Snippets from exercises completed as part of Andrew Ng Machine Learning Course
 
 Exercise 1 - Basic Single Variable Linear regression, Multivariate linear regression, Normal Equation  
 Exercise 2 - Logistic Regression  
